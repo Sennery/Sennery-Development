@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Sennery</title>
+	<meta name="yandex-verification" content="0025e673afa6795e" />
+	<meta charset="utf-8">
+	<meta name="author" content="Лихачев Арсений">
+	<meta name="description" content="Web-разработка, программирование и много чего еще...">
+	<link rel="stylesheet" type="text/css" href="resourses/css/style.css">
+	<link href="https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" rel="stylesheet"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+	<meta name="msapplication-TileColor" content="#da532c">
+	<meta name="theme-color" content="#ffffff">
+
+	<link href="favicon.ico" type="image/x-icon"> 
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+</head>
+
+<body class="hidecontent">
+
+	<!-- Главный экран - надпись и знаки сравнения -->
+
+	<div id="main" class="main_block">
+		
+		<img src="resourses/pics/background_2.jpg" id="background" class="back">
+		
+		<div id="skobkiLeft" class="hello"><</div>
+			
+
+		<div id="sign" class="sign hidecontent">
+			<div class="hello helo">Hello,</div>
+			<div class="hello helo">world!</div>
+		</div>
+
+		<div id="skobkiRight" class="hello">></div>
+
+	</div>
+
+	<!-- Соцсети на главном экране -->
+
+	<div class="footer">
+		<div id="icons" class="socialNet">
+			<a href="https://vk.com/sennery"  target="_blank" class="icon vk"></a>
+			<a href="https://t.me/sennery" target="_blank" class="icon tg"></a>
+			<a href="mailto:mac452ares@gmail.com"  target="_blank" class="icon gm"></a>
+		</div>
+	</div>
+
+	<!-- Нижняя часть страницы, содержит разделы и разную информацию -->
+
+	<div class="bottom_menu" id="botMen">
+
+		<!-- Раздел "Обо мне" -->
+
+		<div id="r1" class="razdel">
+			<div class="zatem"></div>
+			<div class="pic">
+				<img src="resourses/pics/psu_3.png">
+			</div>
+			<div class="cont">
+				<p>
+					Обо мне
+				</p>
+			</div>
+		</div>
+
+		<!-- Раздел "О моих навыках" -->
+
+		<div id="r2" class="razdel">
+			<div class="zatem"></div>
+			<div class="pic">
+				<img src="resourses/pics/js.png">
+			</div>
+			<div class="cont">
+				<p>
+					О моих навыках
+				</p>	
+			</div>
+		</div>
+
+		<!-- Раздел "О моих проектах" -->
+
+		<div id="r3" class="razdel">
+			<div class="zatem"></div>
+			<div class="pic">
+				<img src="resourses/pics/proj_1.jpg">
+			</div>
+			<div class="cont">
+				<p>
+					Мои проекты 
+				</p> 
+			</div>
+		</div>
+		
+		<!-- Раздел "Развлечения" -->
+
+		<div id="r4" class="razdel">
+			<div class="zatem"></div>
+			<div class="pic">
+				<img src="resourses/pics/entertaiment_5.1.png">
+			</div>
+			<div class="cont">
+				<p>
+					Развлечения
+				</p>
+			</div>
+		</div>
+
+		<!-- Информация раздела "Обо мне" -->
+
+		<div id="inf1" class="info disable">
+			<h1>
+				BIO
+			</h1>
+			<p>
+				Привет, меня зовут Арсений Лихачев
+				<br>
+				Рад, что Ты заглянул сюда!
+			</p>
+			<h1>
+				STUDY
+			</h1>
+			<p>
+				Сейчас я учусь в ПГНИУ на 2 курсе направления Прикладная математика и информатика
+			</p>
+			<h1>
+				HOBBI
+			</h1>
+			<p>
+				В свободное время занимаюсь самосовершенствованием:
+				<br>
+				Обучаюсь новым языкам программирования, изучаю интересные мне технологии<br>и много чем еще...
+			</p>
+		</div>
+
+		<!-- Информация раздела "О моих навыках" -->
+
+		<div id="inf2" class="info disable">
+			<h1>
+				WEB
+			</h1>
+			<p>
+				JavaScript ,CSS, HTML
+			</p>
+			<h1>
+				OTHER
+			</h1>
+			<p>
+				C# - средний уровень <br>
+				C++ - ниже среднего <br>
+				На начальном уровне функциональные языки (Haskell, F#) <br>
+			</p>
+			<h1>
+				TOTAL
+			</h1>
+			<p>
+				 Обладаю навыками верстки, написания скриптов на JS и создания различных приложений
+			</p>
+		</div>
+
+		<!-- Информация раздела "О моих проектах" -->
+
+		<div id="inf3" class="info disable">
+			
+		</div>
+
+		<!-- Информация раздела "Равлечения" -->
+
+		<div id="inf4" class="info disable">
+			<h1 id="pyatnashki_h1">Пятнашки</h1>
+			<div class="pyatnashki">
+				<canvas id="pyatnashki_canvas"></canvas>
+			</div>
+		</div>
+
+		<!-- Крестик для закрытия разделов -->
+
+		<div id="krest" class="close">
+		</div>
+	</div>
+
+	<script src="resourses/js/main.js">
+	</script>
+	<script src="resourses/js/pyatnashki.js">
+	</script>
+
+</body>
+
+</html>
