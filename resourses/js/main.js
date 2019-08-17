@@ -152,3 +152,4 @@ krest.onclick = function(event) {
 pyatnashki_h1.onclick = function() {
 	var game = new Game();
 }
+

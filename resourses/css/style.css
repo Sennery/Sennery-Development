@@ -170,8 +170,9 @@ body{
 .bottom_menu{
 	display: flex;
 	flex-direction: column;
-	height: 50%;
+	height: 96vh;
 	position: relative;
+	padding: 2vh 0 2vh 0;
 }
 
 .close{
@@ -230,13 +231,18 @@ body{
 
 .razdel{
 	display: flex;
-	width: 100%;
-	height: 25vh;
+	width: 95%;
+	height: 23vh;
 	top: 0;
+	margin: auto;
 	font-family: 'Open Sans', sans-serif;
 	font-size: 25px;
 	font-weight: 600;
-	border-bottom: 1px solid #717171;
+	/*border-bottom: 1px solid #717171;*/
+	box-shadow: 3px 0px 4px rgba(0,0,0,0.3),
+				0px 3px 4px rgba(0,0,0,0.3), 
+				-2px 0px 3px rgba(0,0,0,0.3);
+	border-radius: 10px;
 	position: relative;
 	cursor: pointer;
 	transition: transform 0.5s ease-out,
@@ -251,6 +257,10 @@ body{
 	opacity: 1;
 }
 
+.razdel:hover{
+	transform: scale(1.02);
+}
+
 .visible.disable{
 	transform: translateX(100vw);
 	border: none;
@@ -261,23 +271,27 @@ body{
 	transition: transform 0.3s cubic-bezier(.88,-0.42,.68,.96);
 	font-size: 35px;
 	box-shadow: 0 5px 15px rgba(0,0,0,0.35);
+	border-radius: 0px;
+	height: 25vh;
+	width: 100%;
 	z-index: 1;
+	margin: 0;
 }
 
 #r1.visible.top{
-	transform: translateY(calc(0 + 1px));
+	transform: translateY(calc(-2vh));
 }
 
 #r2.visible.top{
-	transform: translateY(calc(-25vh + 0px));
+	transform: translateY(calc(-25.5vh));
 }
 
 #r3.visible.top{
-	transform: translateY(calc(-50vh + 0px));
+	transform: translateY(calc(-49.5vh));
 }
 
 #r4.visible.top{
-	transform: translateY(calc(-75vh + 1px));
+	transform: translateY(calc(-73vh));
 }
 
 .razdel .pic{
@@ -287,8 +301,9 @@ body{
 }
 
 .razdel .pic img{
-	max-height: 100%;
-	max-width: 100%;
+	max-height: 90%;
+	max-width: 90%;
+	object-fit: cover;
 	margin: auto;
 	transition: transform 0.1s linear, filter 0.1s linear;
 	z-index: -1;
@@ -318,6 +333,7 @@ body{
 	right: 0;
 	height: 100%;
 	width: 100%;
+	border-radius: inherit;
 	background: rgba(0,0,0,.4);
 	opacity: 0;
 	transition: opacity 0.2s linear;
@@ -329,7 +345,7 @@ body{
 }
 
 img.picIncr{
-	transform: scale(1.2);
+	transform: scale(1.12);
 	filter: blur(2px);
 }
 
@@ -346,7 +362,7 @@ img.picIncr{
 	left: 0;
 	width: 100vw;
 	height: 75vh;
-	font-family: Open Sans, sans-serif;
+	font-family: OpenSans-Regular, sans-serif;
 	font-size: 20px;
 	font-weight: normal;
 	background: linear-gradient(0deg,#414141 0,#373636);
@@ -464,9 +480,21 @@ img.picIncr{
 	}
 }
 
-@media screen and (orientation: landscape) and (max-width: 600px){
+@media screen and (orientation: landscape) and (max-width: 700px){
 	.main_block .hello{
 		font-size: 80px;
+	}
+
+	.info{
+		font-size: 15px;
+	}
+
+	.info h1{
+		font-size: 20px;
+	}
+
+	.info p, .info h1{
+		margin: 10px 20px 0 20px;
 	}
 }
 
