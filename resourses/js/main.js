@@ -39,6 +39,9 @@ window.onscroll = function() {
 	if (scrolled >= 100) icons.parentNode.style.display = 'none';
 	else icons.parentNode.style.display = 'block';
 
+	if (scrolled >= 500) getUp.style.display = 'block';
+	else getUp.style.display = 'none';
+
 	console.log(scrolled / document.documentElement.clientWidth);
 
 	if (scrolled / document.documentElement.clientHeight >= 0.1) botMen.children[0].classList.add('visible');
@@ -152,4 +155,30 @@ krest.onclick = function(event) {
 pyatnashki_h1.onclick = function() {
 	var game = new Game();
 }
+
+getUp.onclick = function(event){
+	//while(window.pageYOffset != 0){
+	//	window.pageYOffset += 20;
+	//}
+	scrollOptions = {
+    	top: 0,
+    	behavior:'smooth' 
+  	}
+	window.scrollTo(scrollOptions);
+	// return scrolltop();
+	// var t; 
+	// function scrolltop() { 
+	// 	var top = Math.max(document.body.scrollTop,document.documentElement.scrollTop); 
+	// 	console.log(top);
+	// 	if(top > 0) { 
+	// 		window.scrollTo(0,1); 
+	// 		t = setTimeout(scrolltop,30); 
+	// 	} else { 
+	// 		clearTimeout(t); 
+	// 	} 
+	// 	return false; 
+	// }
+}
+
+
 
