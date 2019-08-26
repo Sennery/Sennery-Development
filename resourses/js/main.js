@@ -28,10 +28,10 @@ function handlerOut(event) {
 var main = document.getElementById('background');
 var icons = document.getElementById('icons');
 
-window.onscroll = function() {
+function transitionOnScroll() {
 	var scrolled = window.pageYOffset;
 
-	main.style.transform = "translatey(" + scrolled / 2.5 + "px)";
+	main.style.transform = "translatey(" + scrolled / 5 + "px)";
 	main.style.opacity = 1 - scrolled / 700;
 
 	icons.style.opacity = 1 - scrolled / 100;
@@ -179,6 +179,87 @@ getUp.onclick = function(event){
 	// 	return false; 
 	// }
 }
+
+var context = document.getElementById('transit').getContext('2d');
+
+context.canvas.width = document.documentElement.clientWidth;
+context.canvas.height = document.documentElement.clientHeight;
+
+function line(x,y) {
+
+   // context.fillStyle = 'rgba(0,0,0,0)';
+   // context.fillRect(0, 0, context.canvas.width, context.canvas.height);
+   context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+   context.beginPath();
+   context.moveTo(0, context.canvas.height);
+   // context.lineTo(0, context.canvas.height*x.point);
+   context.quadraticCurveTo((context.canvas.width/2)*y,
+                         (context.canvas.height)*x,
+                         context.canvas.width, context.canvas.height);
+   // context.quadraticCurveTo(context.canvas.width/2,
+   //                       context.canvas.height*x.coef,
+   //                       context.canvas.width*2/3, context.canvas.height*x.secondPoint);
+   // context.quadraticCurveTo(context.canvas.width*3/4,
+   //                       context.canvas.height*x.secondCoef,
+   //                       context.canvas.width, context.canvas.height*x.point);
+   // context.lineTo(context.canvas.width, context.canvas.height);
+   context.fillStyle = 'rgba(255,255,255,1)';
+   context.fill();
+ }
+
+ function animate(draw){
+
+  let timeFrom = performance.now();
+  let distanceFrom = window.pageYOffset;
+  let speed = 0;
+  let currentMouseX = document.body.clientWidth/2;
+  let mouseX = document.body.clientWidth/2;
+
+  document.addEventListener('mousemove', (e) => {
+      currentMouseX = e.clientX;
+  });
+
+  requestAnimationFrame(function animate(time) {
+    let timeDifference = time - timeFrom;
+    timeFrom = time;
+
+    let currentSpeed = (window.pageYOffset - distanceFrom)/timeDifference;
+
+    console.log('Speed = ' + speed + ' Current Speed = ' + currentSpeed);
+
+    if(speed - currentSpeed >= 0) 
+      speed = (Math.abs(speed - currentSpeed) <= 0.05) ? 
+  		(currentSpeed != 0) ? 
+  		currentSpeed : 
+  		speed -=0.006 : 
+  		speed -=0.006;
+    else
+      speed = (Math.abs(currentSpeed - speed) <= 0.015) ? currentSpeed : speed +=0.01;
+
+    if(currentMouseX - mouseX === 0) 
+      mouseX = (mouseX < document.body.clientWidth/2) ? mouseX+=5 : 
+        (mouseX > document.body.clientWidth/2) ? mouseX-=5 :
+        mouseX;
+    else
+      mouseX = (Math.abs(currentMouseX - mouseX) < 10) ? currentMouseX :
+        (currentMouseX - mouseX < 0) ? mouseX-=5 : mouseX+=5; 
+
+
+    //speed = (window.pageYOffset - distanceFrom)/timeDifference;
+    distanceFrom = window.pageYOffset;
+
+    //console.log('Time - ' + timeDifference + ' Speed = ' + speed);
+
+    // let progress = findParameters(window.pageYOffset/(1*document.body.clientHeight));
+    // console.log('X = ' + window.pageYOffset/(1*document.body.clientHeight));
+    console.log(mouseX/document.body.clientWidth+0.5);
+    draw[0](1-speed*1.5,mouseX/document.body.clientWidth+0.5);
+    draw[1]();
+    requestAnimationFrame(animate);
+  });
+ }
+
+ animate([line,transitionOnScroll]);
 
 
 

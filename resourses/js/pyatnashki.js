@@ -20,7 +20,7 @@ function Game(){
 	var cellSize = canvas.width/4;
 	var clicks =  0;
 
-	context = canvas.getContext("2d");
+	var context = canvas.getContext("2d");
 
 	initializ();
 
