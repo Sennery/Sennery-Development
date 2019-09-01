@@ -27,6 +27,7 @@ function handlerOut(event) {
 
 var main = document.getElementById('background');
 var icons = document.getElementById('icons');
+var footer = document.querySelector('.footer');
 
 function transitionOnScroll() {
 	var scrolled = window.pageYOffset;
@@ -35,6 +36,9 @@ function transitionOnScroll() {
 	main.style.opacity = 1 - scrolled / 700;
 
 	icons.style.opacity = 1 - scrolled / 100;
+
+	if (scrolled >= 1) footer.style.zIndex = '0';
+	else footer.style.zIndex = '10000';
 
 	if (scrolled >= 100) icons.parentNode.style.display = 'none';
 	else icons.parentNode.style.display = 'block';
