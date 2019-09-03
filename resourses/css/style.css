@@ -281,6 +281,7 @@ body{
 				-3px 0px 5px rgba(50,50,50,0.3);
 	transition: transform 0.3s cubic-bezier(.5, -1, .5, 2);
 	position: fixed;
+	font-family: Open Sans;
 	font-size: 44px;
 	text-align: center;
 	font-weight: bold;
@@ -289,6 +290,7 @@ body{
 	display: none;
 	z-index: 10;
 	cursor: pointer;
+	line-height: 55px;
 	/* transform: translateX(-90px); */
 }
 
