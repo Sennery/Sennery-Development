@@ -422,7 +422,7 @@ img.picIncr{
 
 #transit{
 	position: absolute;
-	height: 100%;
+	height: 100vh;
 	width: 100%;
 	z-index: 9999;
 }
