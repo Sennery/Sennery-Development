@@ -1,4 +1,19 @@
-animate([line,transitionOnScroll]);
+let tempInfo;
+let tempTop;
+let mainBlock 		= document.querySelector('.main_block');
+let blurScreen 		= document.querySelector('.blurScreen');
+let context 		= document.getElementById('transit').getContext('2d');
+let wave			= {
+	draw			: line,
+	coeficients		: coefForWave
+}
+let updateScreen	= {
+	draw			: transitionOnScroll,
+	coeficients 	: (props) => { return {scrolled : props.currentDistance}; }
+}
+let animations 		= [wave,updateScreen];
+
+animate(animations);
 
 window.onload = function(){
 	setTimeout(()=>{
@@ -20,31 +35,7 @@ window.onload = function(){
 	},1000);	
 }
 
-var mainBlock 	= document.querySelector('.main_block');
-var sign		= document.querySelector('.sign');
-var background 	= document.getElementById('background');
-var icons 		= document.getElementById('icons');
-var footer 		= document.querySelector('.footer');
-var blurScreen 	= document.querySelector('.blurScreen');
-
-function transitionOnScroll() {
-	 var scrolled = window.pageYOffset;
-
-	 if(scrolled / document.documentElement.clientHeight >= 0.2) mainBlock.style.filter = 'blur(2px)';
-	 else mainBlock.style.filter = 'blur(0px)';
-
-	 blurScreen.style.opacity = scrolled / 700; 
-
-	 if (scrolled >= 500) getUp.style.display = 'block';
-	 else getUp.style.display = 'none';
-
-	 if (scrolled / document.documentElement.clientHeight >= 0.1) botMen.children[0].classList.add('visible');
-	 if (scrolled / document.documentElement.clientHeight >= 0.35) botMen.children[1].classList.add('visible');
-	 if (scrolled / document.documentElement.clientHeight >= 0.6) botMen.children[2].classList.add('visible');
-	 if (scrolled / document.documentElement.clientHeight >= 0.85) botMen.children[3].classList.add('visible');
-}
-
-botMen.onmouseover = function(event) {
+botMen.onmouseover = botMen.onmouseout = (event) =>{
 	var elem;
 	if (event.target.classList.contains('razdel'))
 		elem = event.target.firstElementChild.nextElementSibling;
@@ -61,58 +52,29 @@ botMen.onmouseover = function(event) {
 	if (pic == null) return;
 	if (pic.firstElementChild == null) return;
 
-	pic.firstElementChild.classList.add('picIncr');
-	cont.firstElementChild.classList.add('contBright');
-	elem.previousElementSibling.classList.add('zatemOn');
-}
-
-botMen.onmouseout = function(event) {
-	var elem
-	if (event.target.classList.contains('razdel'))
-		elem = event.target.firstElementChild.nextElementSibling;
-	if (event.target.tagName == 'DIV')
-		elem = event.target.nextElementSibling;
-	if (event.target.tagName == 'P')
-		elem = event.target.parentNode.parentNode.firstElementChild.nextElementSibling;
-
-	if (elem == null) return;
-
-	var pic 	= (elem.classList.contains('pic')) ? elem : elem.nextElementSibling;
-	var cont 	= (elem.classList.contains('pic')) ? elem.nextElementSibling : elem;
-
-	if (pic == null) return;
-	if (pic.firstElementChild == null) return;
-
-	pic.firstElementChild.classList.remove('picIncr');
-	cont.firstElementChild.classList.remove('contBright');
-	elem.previousElementSibling.classList.remove('zatemOn');
-}
-
-var tempInfo;
-var tempTop;
-
-var enable = function() {
-	tempInfo.classList.remove('disable');
-}
-
-var disable = function() {
-	tempInfo.classList.add('disable');
-	tempInfo = null;
+	if(event.type === 'mouseover'){
+		pic.firstElementChild.classList.add('picIncr');
+		cont.firstElementChild.classList.add('contBright');
+		elem.previousElementSibling.classList.add('zatemOn');
+	} else if (event.type === 'mouseout'){
+		pic.firstElementChild.classList.remove('picIncr');
+		cont.firstElementChild.classList.remove('contBright');
+		elem.previousElementSibling.classList.remove('zatemOn');
+	}
 }
 
 botMen.onclick = function(event) {
-	var elem 	= event.target.parentNode.parentNode;
-	var target 	= event.target;
+	if(event.target.id === 'krest') return;
+
+	let elem 	= event.target.parentNode.parentNode;
+	let target 	= event.target;
 
 	if (elem.children.length < 5) {
 		elem 	= elem.parentNode;
 		target 	= target.parentNode;
 	}
 
-	for (var i = 0; i < elem.children.length - 5; i++) {
-		console.log(elem.children[i]);
-		console.log(target.parentNode);
-
+	for (let i = 0; i < elem.children.length - 5; i++) {
 		if (elem.children[i] != target.parentNode) {
 			elem.children[i].classList.add('disable');
 			elem.lastElementChild.classList.add('visible');
@@ -120,7 +82,7 @@ botMen.onclick = function(event) {
 			tempInfo 	= elem.children[i + 4];
 			tempTop 	= elem.children[i];
 			tempTop.classList.add('top');
-			tempTop.addEventListener("transitionend", enable);
+			tempInfo.classList.remove('disable');
 		}
 	}
 
@@ -138,10 +100,12 @@ inf1.onmouseout 	= inf2.onmouseout 	= inf3.onmouseout 	= inf4.onmouseout 	= func
 }
 
 krest.onclick = function(event) {
-	var elem = event.target.parentNode;
-	tempTop.removeEventListener("transitionend", enable);
-	disable();
-	for (var i = 0; i < elem.children.length - 5; i++) {
+	let elem = event.target.parentNode;
+
+	tempInfo.classList.add('disable');
+	tempInfo = null;
+
+	for (let i = 0; i < elem.children.length - 5; i++) {
 		elem.children[i].classList.remove('disable');
 		elem.children[i].classList.remove('top');
 		event.target.classList.remove('visible');
@@ -149,7 +113,7 @@ krest.onclick = function(event) {
 }
 
 pyatnashki_h1.onclick = function() {
-	var game = new Game();
+	let game = new Game();
 }
 
 getUp.onclick = function(event){	
@@ -160,69 +124,99 @@ getUp.onclick = function(event){
 	window.scrollTo(scrollOptions);
 }
 
-var context = document.getElementById('transit').getContext('2d');
+function line(coefs) {
+	context.canvas.width 	= document.documentElement.clientWidth;
+	context.canvas.height 	= document.documentElement.clientHeight;
 
-context.canvas.width 	= document.documentElement.clientWidth;
-context.canvas.height 	= document.documentElement.clientHeight;
-
-function line(x,y) {	
-   context.clearRect(0, 0, context.canvas.width, context.canvas.height);
-   context.beginPath();
-   context.moveTo(0, context.canvas.height);
-   context.quadraticCurveTo((context.canvas.width/2)*y,
-                         (context.canvas.height)*x,
+	context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+	context.beginPath();
+	context.moveTo(0, context.canvas.height);
+	context.quadraticCurveTo((context.canvas.width/2)*coefs.x,
+                         (context.canvas.height)*coefs.y,
                          context.canvas.width, context.canvas.height);
-   context.fillStyle = 'rgba(255,255,255,1)';
-   context.fill();
+	context.fillStyle = 'rgba(255,255,255,1)';	context.fill();
  }
 
- function animate(draw){
+function coefForWave(props){
+	if(props.previousSpeed != 0) transit.style.zIndex = 10;
+	    else transit.style.zIndex = 3;
 
-  let timeFrom 		= performance.now();
-  let distanceFrom 	= window.pageYOffset;
-  let speed 		= 0;
-  let currentMouseX = document.body.clientWidth/2;
-  let mouseX 		= document.body.clientWidth/2;
+	if(props.previousSpeed - props.currentSpeed > 0) 
+		props.previousSpeed = (Math.abs(props.previousSpeed - props.currentSpeed) <= 0.05) ? 
+			(props.currentSpeed != 0) ? 
+				props.currentSpeed : 
+				props.previousSpeed -=0.006 : 
+				props.previousSpeed -=0.006;
+	else
+		props.previousSpeed = (Math.abs(props.currentSpeed - props.previousSpeed) <= 0.01) ? 
+			props.currentSpeed : props.previousSpeed +=0.005;
 
-  document.addEventListener('mousemove', (e) => {
-      currentMouseX = e.clientX;
-  });
+	if(props.currentMouseX - props.previousMouseX === 0) 
+		props.previousMouseX = (props.previousMouseX < document.body.clientWidth/2) ? 
+			props.previousMouseX+=5 : (props.previousMouseX > document.body.clientWidth/2) ?
+				props.previousMouseX-=5 :props.previousMouseX;
+	else
+		props.previousMouseX = (Math.abs(props.currentMouseX - props.previousMouseX) < 10) ?
+			props.currentMouseX : (props.currentMouseX - props.previousMouseX < 0) ?
+				props.previousMouseX-=5 : props.previousMouseX+=5;
 
-  requestAnimationFrame(function animate(time) {
-    let timeDifference 	= time - timeFrom;
-    timeFrom 			= time;
+	return {
+		y	: 1-props.previousSpeed,
+		x	: props.previousMouseX/document.body.clientWidth+0.5
+	}
+}
 
-    let currentSpeed 	= (window.pageYOffset - distanceFrom)/timeDifference;
+function transitionOnScroll(coefs) {
+	blurScreen.style.opacity = coefs.scrolled / 700; 
 
-    //console.log('Speed = ' + speed + ' Current Speed = ' + currentSpeed);
+	if (coefs.scrolled >= 500) getUp.style.display = 'block';
+	else getUp.style.display = 'none';
 
-    if(speed - currentSpeed >= 0) 
-      speed = (Math.abs(speed - currentSpeed) <= 0.05) ? 
-  		(currentSpeed != 0) ? 
-  		currentSpeed : 
-  		speed -=0.006 : 
-  		speed -=0.006;
-    else
-      speed = (Math.abs(currentSpeed - speed) <= 0.015) ? currentSpeed : speed +=0.01;
+	let coefOfScroll = coefs.scrolled / document.documentElement.clientHeight;
 
-    if(currentMouseX - mouseX === 0) 
-      mouseX = (mouseX < document.body.clientWidth/2) ? mouseX+=5 : 
-        (mouseX > document.body.clientWidth/2) ? mouseX-=5 :
-        mouseX;
-    else
-      mouseX = (Math.abs(currentMouseX - mouseX) < 10) ? currentMouseX :
-        (currentMouseX - mouseX < 0) ? mouseX-=5 : mouseX+=5; 
+	if(coefOfScroll >= 0.2){
+	 	mainBlock.style.filter = 'blur(2px)';
+	 	mainBlock.style.zIndex = 1;
+	}else{
+	 	mainBlock.style.filter = 'blur(0px)';
+	 	mainBlock.style.zIndex = 5;
+	}
+	if (coefOfScroll >= 0.1) botMen.children[0].classList.add('visible');
+	if (coefOfScroll >= 0.35) botMen.children[1].classList.add('visible');
+	if (coefOfScroll >= 0.6) botMen.children[2].classList.add('visible');
+	if (coefOfScroll >= 0.85) botMen.children[3].classList.add('visible');
+}
 
-    distanceFrom = window.pageYOffset;
+function animate(animation){
 
-    draw[0](1-speed*1.5,mouseX/document.body.clientWidth+0.5);
-    draw[1]();
+	let properties = {
+		currentTime		: performance.now(),
+		previousTime	: performance.now(),
+		currentDistance	: window.pageYOffset,
+		previousDistance: window.pageYOffset,
+		currentSpeed	: 0,
+		previousSpeed	: 0,
+		currentMouseX	: document.body.clientWidth/2,
+		previousMouseX	: document.body.clientWidth/2
+	}
 
-    requestAnimationFrame(animate);
-  });
+	document.addEventListener('mousemove', (e) => {
+		properties.currentMouseX = e.clientX;
+	});
+
+	requestAnimationFrame(function animate(time) {
+    	properties.currentTime		= time;
+    	properties.currentDistance 	= window.pageYOffset;
+    	properties.currentSpeed 	= (properties.currentDistance - properties.previousDistance)/(properties.currentTime-properties.previousTime);
+
+    	animation.forEach((item,i,arr) => {
+    		let coeficients = item.coeficients(properties);
+    		item.draw(coeficients);
+    	});
+
+    	properties.previousTime = time;
+    	properties.previousDistance = window.pageYOffset;    
+
+	    requestAnimationFrame(animate);
+	  });
  }
-
- 
-
-
-
