@@ -244,6 +244,7 @@ body.hidecontent{
 				top 2s cubic-bezier(.88,-0.42,.68,.96);
 	transform: translateX(100px);
 	opacity: 0.1;
+	overflow: hidden;
 }
 
 .razdel.visible{
@@ -424,7 +425,7 @@ img.picIncr{
 	position: absolute;
 	height: 100vh;
 	width: 100%;
-	z-index: 9999;
+	z-index: 3;
 }
 
 @keyframes loader_for_text{
