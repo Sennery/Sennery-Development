@@ -12,7 +12,7 @@ function Game(){
 			[13,14,15,0]
 	];;
 
-	var canvas = document.getElementById('pyatnashki_canvas');
+	let canvas = document.querySelector('.gameCanvas');
 
 	canvas.width = 320;
 	canvas.height = 320;
