@@ -32,7 +32,7 @@ window.onload = function(){
 		setTimeout(function() {
 			document.body.classList.remove("hidecontent");
 		}, 500);
-	},1000);	
+	},100);	
 }
 
 botMen.onmouseover = botMen.onmouseout = (event) =>{
@@ -112,8 +112,14 @@ krest.onclick = function(event) {
 	}
 }
 
-pyatnashki_h1.onclick = function() {
-	let game = new Game();
+let game;
+
+pyatnashki_h1.onclick = function() {	
+	game = new Game();
+}
+
+shooter_h1.onclick = function()	{
+	game = new Game1();	
 }
 
 getUp.onclick = function(event){	
