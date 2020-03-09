@@ -530,8 +530,8 @@ img.picIncr{
 }
 
 @media screen and (orientation: portrait){
-	#sign{
-		width: 100%;
+	.main_block .sign{
+		bottom: 25%;
 	}
 
 	#inf4{
@@ -570,6 +570,7 @@ img.picIncr{
 
 	.footer{
 		height: 60px;
+		bottom: 10%;
 	}
 
 	.close{
