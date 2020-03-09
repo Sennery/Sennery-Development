@@ -114,6 +114,7 @@ body.hidecontent{
 
 .name{
 	font-size: 1em;
+	font-weight: bold;
 	color: rgba(255,255,255,1);
 }
 
@@ -596,7 +597,7 @@ img.picIncr{
 	}
 }
 
-@media screen and (orientation: landscape) and (max-width: 800px){
+@media screen and (orientation: landscape) and (max-width: 1000px){
 	.info{
 		font-size: 15px;
 	}
