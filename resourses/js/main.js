@@ -131,6 +131,7 @@ getUp.onclick = function(event){
 }
 
 function line(coefs) {
+	if(coefs.y == 1) return;
 	context.canvas.width 	= document.documentElement.clientWidth;
 	context.canvas.height 	= document.documentElement.clientHeight;
 
@@ -186,13 +187,13 @@ function transitionOnScroll(coefs) {
 
 	let coefOfScroll = coefs.scrolled / document.documentElement.clientHeight;
 
-	if(coefOfScroll >= 0.2){
-	 	mainBlock.style.filter = 'blur(2px)';
-	 	mainBlock.style.zIndex = 1;
-	}else{
-	 	mainBlock.style.filter = 'blur(0px)';
-	 	mainBlock.style.zIndex = 5;
-	}
+	// if(coefOfScroll >= 0.2){
+	//  	mainBlock.style.filter = 'blur(2px)';
+	//  	mainBlock.style.zIndex = 1;
+	// }else{
+	//  	mainBlock.style.filter = 'blur(0px)';
+	//  	mainBlock.style.zIndex = 5;
+	// }
 	if (coefOfScroll >= 0.1) botMen.children[0].classList.add('visible');
 	if (coefOfScroll >= 0.35) botMen.children[1].classList.add('visible');
 	if (coefOfScroll >= 0.6) botMen.children[2].classList.add('visible');
