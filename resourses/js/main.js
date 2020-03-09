@@ -187,13 +187,11 @@ function transitionOnScroll(coefs) {
 
 	let coefOfScroll = coefs.scrolled / document.documentElement.clientHeight;
 
-	// if(coefOfScroll >= 0.2){
-	//  	mainBlock.style.filter = 'blur(2px)';
-	//  	mainBlock.style.zIndex = 1;
-	// }else{
-	//  	mainBlock.style.filter = 'blur(0px)';
-	//  	mainBlock.style.zIndex = 5;
-	// }
+	if(coefOfScroll >= 0.2){
+	 	mainBlock.style.zIndex = 1;
+	}else{
+	 	mainBlock.style.zIndex = 5;
+	}
 	if (coefOfScroll >= 0.1) botMen.children[0].classList.add('visible');
 	if (coefOfScroll >= 0.35) botMen.children[1].classList.add('visible');
 	if (coefOfScroll >= 0.6) botMen.children[2].classList.add('visible');
