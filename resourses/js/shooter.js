@@ -29,7 +29,7 @@ function Game1(){
 
     let enemies = [];
 
-	document.body.style = 'overflow-y: hidden;';
+	// document.body.style = 'overflow-y: hidden;';
 
 	document.addEventListener('keydown', function(event) {
   		switch (event.code) {
@@ -116,7 +116,7 @@ function Game1(){
 		}
 		if(enabled == true) requestAnimationFrame(draw);
 		else {
-			document.body.style = 'overflow-y: auto;';
+			// document.body.style = 'overflow-y: auto;';
 			return;
 		}
 	};

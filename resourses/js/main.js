@@ -124,7 +124,7 @@ shooter_h1.onclick = function()	{
 
 getUp.onclick = function(event){	
 	scrollOptions = {
-    	top: 0,
+    	top: x = window.pageYOffset == 0 ? document.documentElement.clientHeight : 0,
     	behavior:'smooth' 
   	}
 	window.scrollTo(scrollOptions);
@@ -137,7 +137,7 @@ function line(coefs) {
 	context.clearRect(0, 0, context.canvas.width, context.canvas.height);
 	context.beginPath();
 	context.moveTo(0, context.canvas.height);
-	context.quadraticCurveTo((context.canvas.width/2)*coefs.x,
+	context.quadraticCurveTo((context.canvas.width/2),
                          (context.canvas.height)*coefs.y,
                          context.canvas.width, context.canvas.height);
 	context.fillStyle = 'rgba(255,255,255,1)';	context.fill();
@@ -148,23 +148,23 @@ function coefForWave(props){
 	    else transit.style.zIndex = 3;
 
 	if(props.previousSpeed - props.currentSpeed > 0) 
-		props.previousSpeed = (Math.abs(props.previousSpeed - props.currentSpeed) <= 0.05) ? 
+		props.previousSpeed = (Math.abs(props.previousSpeed - props.currentSpeed) <= 0.08) ? 
 			(props.currentSpeed != 0) ? 
 				props.currentSpeed : 
-				props.previousSpeed -=0.006 : 
-				props.previousSpeed -=0.006;
+				props.previousSpeed -=0.009 : 
+				props.previousSpeed -=0.009;
 	else
-		props.previousSpeed = (Math.abs(props.currentSpeed - props.previousSpeed) <= 0.01) ? 
-			props.currentSpeed : props.previousSpeed +=0.005;
+		props.previousSpeed = (Math.abs(props.currentSpeed - props.previousSpeed) <= 0.05) ? 
+			props.currentSpeed : props.previousSpeed +=0.03;
 
-	if(props.currentMouseX - props.previousMouseX === 0) 
-		props.previousMouseX = (props.previousMouseX < document.body.clientWidth/2) ? 
-			props.previousMouseX+=5 : (props.previousMouseX > document.body.clientWidth/2) ?
-				props.previousMouseX-=5 :props.previousMouseX;
-	else
-		props.previousMouseX = (Math.abs(props.currentMouseX - props.previousMouseX) < 10) ?
-			props.currentMouseX : (props.currentMouseX - props.previousMouseX < 0) ?
-				props.previousMouseX-=5 : props.previousMouseX+=5;
+	// if(props.currentMouseX - props.previousMouseX === 0) 
+	// 	props.previousMouseX = (props.previousMouseX < document.body.clientWidth/2) ? 
+	// 		props.previousMouseX+=5 : (props.previousMouseX > document.body.clientWidth/2) ?
+	// 			props.previousMouseX-=5 :props.previousMouseX;
+	// else
+	// 	props.previousMouseX = (Math.abs(props.currentMouseX - props.previousMouseX) < 10) ?
+	// 		props.currentMouseX : (props.currentMouseX - props.previousMouseX < 0) ?
+	// 			props.previousMouseX-=5 : props.previousMouseX+=5;
 
 	return {
 		y	: 1-props.previousSpeed,
@@ -175,8 +175,14 @@ function coefForWave(props){
 function transitionOnScroll(coefs) {
 	blurScreen.style.opacity = coefs.scrolled / 700; 
 
-	if (coefs.scrolled >= 500) getUp.style.display = 'block';
-	else getUp.style.display = 'none';
+	if (coefs.scrolled >= 500){
+		getUp.style.transform = 'rotateZ(-90deg)';
+		getUp.style.color = '#564168';
+	}
+	else{ 
+		getUp.style.transform = 'rotateZ(90deg)';
+		getUp.style.color = 'white';
+	}
 
 	let coefOfScroll = coefs.scrolled / document.documentElement.clientHeight;
 
