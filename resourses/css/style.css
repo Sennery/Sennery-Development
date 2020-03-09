@@ -399,7 +399,7 @@ img.picIncr{
 .info p{
 	color: rgb(159, 159, 159);
 	margin: 10px 20px 0 90px;
-	margin-top: auto;
+	/*margin-top: auto;*/
 	margin-bottom: auto;
 	font-size: 0.7em;
 }
@@ -409,7 +409,7 @@ img.picIncr{
 	text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
 	margin: 10px 20px 0 70px;
 	margin-top: auto;
-	margin-bottom: auto;
+	/*margin-bottom: auto;*/
 }
 
 .info.disable{
