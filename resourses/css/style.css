@@ -24,7 +24,7 @@ body.hidecontent{
 	height: 100vh;
 	width: 100vw;
 	background-color: rgba(0,0,0,1);
-	background-image: radial-gradient(#63009b,#714088);
+	background-image: radial-gradient(#63009b,#25003e);
 	z-index:999999;
 	transition: opacity 0.5s ease-in;
 }
@@ -89,7 +89,7 @@ body.hidecontent{
     perspective-origin: center bottom;
     background-image: radial-gradient(circle at 100% ,#20052ffa, #2d165a);
     z-index: 1;
-
+	flex-shrink: 0;
 	transition: filter 0.5s linear;
 }
 
@@ -261,6 +261,7 @@ body.hidecontent{
 	transform: translateX(100vw);
 	border: none;
 	opacity: 0;
+	margin: 0;
 }
 
 .up {
@@ -301,15 +302,15 @@ body.hidecontent{
 }
 
 #r2.visible.top{
-	transform: translateY(calc(-25.5vh));
+	transform: translateY(calc(-24vh));
 }
 
 #r3.visible.top{
-	transform: translateY(calc(-49.5vh));
+	transform: translateY(calc(-46vh));
 }
 
 #r4.visible.top{
-	transform: translateY(calc(-73vh));
+	transform: translateY(calc(-68vh));
 }
 
 .razdel .pic{
@@ -353,7 +354,7 @@ body.hidecontent{
 	height: 100%;
 	width: 100%;
 	border-radius: inherit;
-	background: rgba(0,0,0,.4);
+	background: linear-gradient(to right, #3e03602e, rgba(52, 2, 81, 0.73));
 	opacity: 0;
 	transition: opacity 0.2s linear;
 	z-index: 0;
@@ -384,7 +385,7 @@ img.picIncr{
 	font-family: OpenSans-Regular, sans-serif;
 	font-size: 2em;
 	font-weight: normal;
-	background: linear-gradient(0deg,#414141 0,#373636);
+	background: linear-gradient(to bottom,#20052f 0,#2d165a);
 }
 
 .info p, .info h3{
