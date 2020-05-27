@@ -243,13 +243,13 @@ body.hidecontent{
 	transition: transform 0.5s ease-out,
 				opacity 0.5s ease-out,
 				top 2s cubic-bezier(.88,-0.42,.68,.96);
-	transform: translateX(100px);
-	opacity: 0.1;
+/*	transform: translateY(100px);
+	opacity: 0.1;*/
 	overflow: hidden;
 }
 
 .razdel.visible{
-	transform: translateX(0px);
+	transform: translateY(0px);
 	opacity: 1;
 }
 
@@ -257,8 +257,8 @@ body.hidecontent{
 	transform: scale(1.02);
 }
 
-.visible.disable{
-	transform: translateX(100vw);
+.disable{
+	transform: scale(0.1);
 	border: none;
 	opacity: 0;
 	margin: 0;
@@ -272,7 +272,7 @@ body.hidecontent{
 	position: fixed;
 	font-family: Open Sans;
 	font-size: 44px;
-	color: #000000db;
+	color: #fff;
 	display: block;
 	z-index: 10;
 	cursor: pointer;
@@ -286,7 +286,7 @@ body.hidecontent{
 	transform: scale(1.1) rotateZ(-90deg);
 }*/
 
-#r1.visible.top,#r2.visible.top,#r3.visible.top,#r4.visible.top{
+#r1.top,#r2.top,#r3.top,#r4.top{
 	transition: transform 0.3s cubic-bezier(.88,-0.42,.68,.96);
 	font-size: 2em;
 	box-shadow: 0 5px 15px rgba(0,0,0,0.35);
@@ -297,19 +297,19 @@ body.hidecontent{
 	margin: 0;
 }
 
-#r1.visible.top{
+#r1.top{
 	transform: translateY(calc(-2vh));
 }
 
-#r2.visible.top{
+#r2.top{
 	transform: translateY(calc(-24vh));
 }
 
-#r3.visible.top{
+#r3.top{
 	transform: translateY(calc(-46vh));
 }
 
-#r4.visible.top{
+#r4.top{
 	transform: translateY(calc(-68vh));
 }
 

@@ -11,7 +11,7 @@ let updateScreen	= {
 	draw			: transitionOnScroll,
 	coeficients 	: (props) => { return {scrolled : props.currentDistance}; }
 }
-let animations 		= [wave,updateScreen];
+let animations 		= [wave];
 
 animate(animations);
 
@@ -122,9 +122,29 @@ shooter_h1.onclick = function()	{
 	game = new Game1();	
 }
 
-getUp.onclick = function(event){	
+getUp.onclick = function(event){
+	if (window.pageYOffset == 0){
+		getUp.style.transform = 'rotateZ(-90deg)';
+		getUp.style.color = '#564168';
+
+		// for(let i = 0; i < 4; i++){
+		// 	setTimeout(() => {
+		// 		botMen.children[i].classList.add('visible');
+		// 	}, 100*i);
+		// }
+	}
+	else{ 
+		getUp.style.transform = 'rotateZ(90deg)';
+		getUp.style.color = 'white';
+
+		// for(let i = 0; i < 4; i++){
+		// 	setTimeout(() => {
+		// 		botMen.children[i].classList.remove ('visible');
+		// 	}, 100*i);
+		// }
+	}	
 	scrollOptions = {
-    	top: x = window.pageYOffset == 0 ? document.documentElement.clientHeight : 0,
+    	top: x = window.pageYOffset == 0 ? window.innerHeight : 0,
     	behavior:'smooth' 
   	}
 	window.scrollTo(scrollOptions);
