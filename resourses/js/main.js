@@ -7,10 +7,6 @@ let wave			= {
 	draw			: line,
 	coeficients		: coefForWave
 }
-let updateScreen	= {
-	draw			: transitionOnScroll,
-	coeficients 	: (props) => { return {scrolled : props.currentDistance}; }
-}
 let animations 		= [wave];
 
 animate(animations);
@@ -126,22 +122,12 @@ getUp.onclick = function(event){
 	if (window.pageYOffset == 0){
 		getUp.style.transform = 'rotateZ(-90deg)';
 		getUp.style.color = '#564168';
-
-		// for(let i = 0; i < 4; i++){
-		// 	setTimeout(() => {
-		// 		botMen.children[i].classList.add('visible');
-		// 	}, 100*i);
-		// }
+		document.querySelector('.footer').style.zIndex = 5;
 	}
 	else{ 
 		getUp.style.transform = 'rotateZ(90deg)';
 		getUp.style.color = 'white';
-
-		// for(let i = 0; i < 4; i++){
-		// 	setTimeout(() => {
-		// 		botMen.children[i].classList.remove ('visible');
-		// 	}, 100*i);
-		// }
+		document.querySelector('.footer').style.zIndex = 7;
 	}	
 	scrollOptions = {
     	top: x = window.pageYOffset == 0 ? window.innerHeight : 0,
@@ -151,71 +137,34 @@ getUp.onclick = function(event){
 }
 
 function line(coefs) {
-	if(coefs.y == 1) return;
 	context.canvas.width 	= document.documentElement.clientWidth;
 	context.canvas.height 	= document.documentElement.clientHeight;
 
 	context.clearRect(0, 0, context.canvas.width, context.canvas.height);
 	context.beginPath();
 	context.moveTo(0, context.canvas.height);
-	context.quadraticCurveTo((context.canvas.width/2),
-                         (context.canvas.height)*coefs.y,
-                         context.canvas.width, context.canvas.height);
+	for(let i = 0; i <= context.canvas.width; i++) {
+		context.lineTo(i, context.canvas.height - Math.sin((i+coefs.posXCoef)/coefs.freqCoef)*coefs.sizeCoef - coefs.posYCoef);
+	}
+	context.lineTo(context.canvas.width, context.canvas.height);
 	context.fillStyle = 'rgba(255,255,255,1)';	context.fill();
  }
 
 function coefForWave(props){
-	if(props.previousSpeed != 0) transit.style.zIndex = 10;
-	    else transit.style.zIndex = 3;
+	if(props.currentDistance > props.previousDistance) { 
+		props.previousDistance = (props.currentDistance - props.previousDistance <= 50) ? props.currentDistance : props.previousDistance + 50;
+	}else if(props.currentDistance < props.previousDistance) { 
+		props.previousDistance = (props.previousDistance - props.currentDistance <= 10) ? props.currentDistance : props.previousDistance - 10*(Math.sqrt(props.previousDistance/document.documentElement.clientHeight));
+	}
 
-	if(props.previousSpeed - props.currentSpeed > 0) 
-		props.previousSpeed = (Math.abs(props.previousSpeed - props.currentSpeed) <= 0.08) ? 
-			(props.currentSpeed != 0) ? 
-				props.currentSpeed : 
-				props.previousSpeed -=0.009 : 
-				props.previousSpeed -=0.009;
-	else
-		props.previousSpeed = (Math.abs(props.currentSpeed - props.previousSpeed) <= 0.05) ? 
-			props.currentSpeed : props.previousSpeed +=0.03;
-
-	// if(props.currentMouseX - props.previousMouseX === 0) 
-	// 	props.previousMouseX = (props.previousMouseX < document.body.clientWidth/2) ? 
-	// 		props.previousMouseX+=5 : (props.previousMouseX > document.body.clientWidth/2) ?
-	// 			props.previousMouseX-=5 :props.previousMouseX;
-	// else
-	// 	props.previousMouseX = (Math.abs(props.currentMouseX - props.previousMouseX) < 10) ?
-	// 		props.currentMouseX : (props.currentMouseX - props.previousMouseX < 0) ?
-	// 			props.previousMouseX-=5 : props.previousMouseX+=5;
+	console.log('Prev: ' + props.previousDistance + ' Cur: ' + props.currentDistance);
 
 	return {
-		y	: 1-props.previousSpeed,
-		x	: props.previousMouseX/document.body.clientWidth+0.5
+		posXCoef : Math.sin(props.currentTime/1000 - 1) * 10 + 100,
+		freqCoef : 100,
+		sizeCoef : props.previousDistance/10 +  Math.sin(props.currentTime/1000) * 10,
+		posYCoef : props.previousDistance/5 + 20
 	}
-}
-
-function transitionOnScroll(coefs) {
-	blurScreen.style.opacity = coefs.scrolled / 700; 
-
-	if (coefs.scrolled >= 500){
-		getUp.style.transform = 'rotateZ(-90deg)';
-		getUp.style.color = '#564168';
-	}
-	else{ 
-		getUp.style.transform = 'rotateZ(90deg)';
-		getUp.style.color = 'white';
-	}
-
-	let coefOfScroll = coefs.scrolled / document.documentElement.clientHeight;
-
-	if(coefOfScroll >= 0.2){
-	 	mainBlock.style.zIndex = 1;
-	}else{
-	 	mainBlock.style.zIndex = 5;
-	}
-	if (coefOfScroll >= 0.1) botMen.children[0].classList.add('visible');
-	if (coefOfScroll >= 0.35) botMen.children[1].classList.add('visible');
-	if (coefOfScroll >= 0.6) botMen.children[2].classList.add('visible');
-	if (coefOfScroll >= 0.85) botMen.children[3].classList.add('visible');
 }
 
 function animate(animation){
@@ -224,21 +173,12 @@ function animate(animation){
 		currentTime		: performance.now(),
 		previousTime	: performance.now(),
 		currentDistance	: window.pageYOffset,
-		previousDistance: window.pageYOffset,
-		currentSpeed	: 0,
-		previousSpeed	: 0,
-		currentMouseX	: document.body.clientWidth/2,
-		previousMouseX	: document.body.clientWidth/2
+		previousDistance: window.pageYOffset
 	}
-
-	document.addEventListener('mousemove', (e) => {
-		properties.currentMouseX = e.clientX;
-	});
 
 	requestAnimationFrame(function animate(time) {
     	properties.currentTime		= time;
     	properties.currentDistance 	= window.pageYOffset;
-    	properties.currentSpeed 	= (properties.currentDistance - properties.previousDistance)/(properties.currentTime-properties.previousTime);
 
     	animation.forEach((item,i,arr) => {
     		let coeficients = item.coeficients(properties);
@@ -246,7 +186,6 @@ function animate(animation){
     	});
 
     	properties.previousTime = time;
-    	properties.previousDistance = window.pageYOffset;    
 
 	    requestAnimationFrame(animate);
 	  });
