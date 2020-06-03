@@ -1,6 +1,7 @@
 let tempInfo;
 let tempTop;
 let mainBlock 		= document.querySelector('.main_block');
+let preloader 		= document.querySelector('.preloader');
 let blurScreen 		= document.querySelector('.blurScreen');
 let context 		= document.getElementById('transit').getContext('2d');
 let wave			= {
@@ -8,27 +9,42 @@ let wave			= {
 	coeficients		: coefForWave
 }
 let animations 		= [wave];
+let isPreloader = 1;
 
-animate(animations);
+// animate(animations);
 
-window.onload = function(){
+window.onload = function(){	
 	setTimeout(()=>{
 		scrollOptions = {
 	    	 top: 0 
 	  	}
 		window.scrollTo(scrollOptions);
 
-		let preloader = document.querySelector('.preloader');
+		let properties = {
+			currentTime		: performance.now(),
+			previousTime	: performance.now(),
+			currentDistance	: 0,
+			previousDistance: document.documentElement.clientHeight
+		};
 
-		preloader.style.opacity = 0;
-		setTimeout(()=>(
-			preloader.style.display = 'none'
-		),1000);
+		function animatePreloader(time) {
+			properties.currentTime		= time;
 
-		setTimeout(function() {
-			document.body.classList.remove("hidecontent");
-		}, 500);
-	},100);	
+			wave.draw(wave.coeficients(properties));
+
+			if(properties.previousDistance != 0) {
+				requestAnimationFrame(animatePreloader);
+			}
+			else {
+				isPreloader = 0.2;
+				animate(animations);
+			}
+			properties.previousTime = time;
+		};
+
+		preloader.style.display = 'none';
+		animatePreloader();
+	},200);	
 }
 
 botMen.onmouseover = botMen.onmouseout = (event) =>{
@@ -154,16 +170,15 @@ function coefForWave(props){
 	if(props.currentDistance > props.previousDistance) { 
 		props.previousDistance = (props.currentDistance - props.previousDistance <= 50) ? props.currentDistance : props.previousDistance + 50;
 	}else if(props.currentDistance < props.previousDistance) { 
-		props.previousDistance = (props.previousDistance - props.currentDistance <= 10) ? props.currentDistance : props.previousDistance - 10*(Math.sqrt(props.previousDistance/document.documentElement.clientHeight));
-	}
-
-	console.log('Prev: ' + props.previousDistance + ' Cur: ' + props.currentDistance);
-
+		props.previousDistance = (props.previousDistance - props.currentDistance <= 1) ? 
+			props.currentDistance : props.previousDistance - 20*(Math.sqrt(props.previousDistance/document.documentElement.clientHeight));
+	};
+	
 	return {
-		posXCoef : Math.sin(props.currentTime/1000 - 1) * 10 + 100,
+		posXCoef : Math.sin(props.currentTime/1000 - 3) * 10 + 100,
 		freqCoef : 100,
-		sizeCoef : props.previousDistance/10 +  Math.sin(props.currentTime/1000) * 10,
-		posYCoef : props.previousDistance/5 + 20
+		sizeCoef : Math.sin(props.previousDistance/document.documentElement.clientHeight * Math.PI) * 50  +  Math.sin(props.currentTime/1000) * 10,
+		posYCoef : props.previousDistance * isPreloader + 20
 	}
 }
 

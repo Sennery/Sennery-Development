@@ -23,10 +23,11 @@ body.hidecontent{
 	top: 0;
 	height: 100vh;
 	width: 100vw;
-	background-color: rgba(0,0,0,1);
-	background-image: radial-gradient(#63009b,#25003e);
+	background-color: white;
+	/*background-color: rgba(0,0,0,1);
+	background-image: radial-gradient(#63009b,#25003e);*/
 	z-index:999999;
-	transition: opacity 0.5s ease-in;
+	/*transition: opacity 0.5s ease-in;*/
 }
 
 .loader{
