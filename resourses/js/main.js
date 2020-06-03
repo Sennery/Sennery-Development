@@ -145,10 +145,18 @@ getUp.onclick = function(event){
 		getUp.style.color = 'white';
 		document.querySelector('.footer').style.zIndex = 7;
 	}	
+	scroll();
+}
+
+function scroll(upMode){
 	scrollOptions = {
     	top: x = window.pageYOffset == 0 ? window.innerHeight : 0,
     	behavior:'smooth' 
   	}
+  	if(upMode != undefined)
+	  	if(upMode == true) scrollOptions.top = 0;
+	  	else if (upMode == false) scrollOptions.top = window.innerHeight;
+
 	window.scrollTo(scrollOptions);
 }
 
@@ -175,8 +183,8 @@ function coefForWave(props){
 	};
 	
 	return {
-		posXCoef : Math.sin(props.currentTime/1000 - 3) * 10 + 100,
-		freqCoef : 100,
+		posXCoef : Math.sin(props.currentTime/1000 - 3) * 10 + 150,
+		freqCoef : document.documentElement.clientWidth/25 + 25,
 		sizeCoef : Math.sin(props.previousDistance/document.documentElement.clientHeight * Math.PI) * 50  +  Math.sin(props.currentTime/1000) * 10,
 		posYCoef : props.previousDistance * isPreloader + 20
 	}
@@ -205,3 +213,27 @@ function animate(animation){
 	    requestAnimationFrame(animate);
 	  });
  }
+
+var touchstartX = 0;
+var touchstartY = 0;
+var touchendX = 0;
+var touchendY = 0;
+
+var gesuredZone = document.body;
+
+gesuredZone.addEventListener('touchstart', function(event) {
+    touchstartX = event.changedTouches[0].screenX;
+    touchstartY = event.changedTouches[0].screenY;
+}, false);
+
+gesuredZone.addEventListener('touchend', function(event) {
+    touchendX = event.changedTouches[0].screenX;
+    touchendY = event.changedTouches[0].screenY;
+    handleGesure();
+}, false); 
+
+function handleGesure() {
+    var swiped = 'swiped: ';
+    if( touchstartY - touchendY > 200) scroll(false);
+    if( touchendY - touchstartY > 200) scroll(true);
+}
